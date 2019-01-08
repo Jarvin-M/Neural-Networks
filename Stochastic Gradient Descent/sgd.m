@@ -15,7 +15,9 @@ function [w1,w2,E_cost,test_error] = sgd(xi,tau, P,Q,eta,tmax)
     %|w2|^2 = 1.
     N = length(xi(:,1));
     w1 = rand(N,1);
+    w1 = w1/sum(w1);
     w2 = rand(N,1);
+    w2 = w2/sum(w2);
 
     E_cost = zeros(tmax,1); % stores the cost function E(t)
     test_error = zeros (tmax,1); % E_test(t)
