@@ -9,7 +9,7 @@ function [w1,w2,E_cost,test_error] = sgd(xi,tau, P,Q,eta,tmax)
 % tmax - number of learning steps
 
     
-    rng(1000);
+    
     % w1 and w2 - N dim vectors of adpative input to hidden networks
     %Initialize the weights as independent random vectors with |w1|^2 = 1 and
     %|w2|^2 = 1.
@@ -32,9 +32,11 @@ function [w1,w2,E_cost,test_error] = sgd(xi,tau, P,Q,eta,tmax)
             t2 = dot(w2,xi_v);
             sigma = tanh(t1) +tanh(t2);
             
-            Ev = (sigma - tau_v)^2 /2;
-            delta1 = gradient(w1,Ev); %gradient with w.r.t w1
-            delta2 = gradient(w2,Ev); %gradient  with w.r.t w2
+            %Ev = (sigma - tau_v)^2 /2;
+            % from gradient-example.pdf
+            
+            delta1 = (sigma - tau_v)* (1-tanh(t1)^2) * xi_v; %gradient with w.r.t w1
+            delta2 = (sigma - tau_v)* (1-tanh(t2)^2) * xi_v; %gradient  with w.r.t w2
 
             w1 = w1 - (eta*delta1); % update of
             w2 = w2 - (eta*delta2); 
