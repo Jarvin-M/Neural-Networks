@@ -48,9 +48,7 @@ saveas(gcf, 'costvsgeneralisation.png');
 
 %display the obtained, final weight vectors, for instance as bar graphs.
 figure();
-bar(mean(all_w1,2));
-hold on;
-bar(mean(all_w2,2));
+bar(1:50, [mean(all_w1,2) mean(all_w2,2)], 'BarWidth', 1);
 ylabel("Weight value", 'Interpreter', 'latex');
 xlabel("Component index", 'Interpreter', 'latex');
 % title("Average final weights for 40 random initialisations");
@@ -91,18 +89,23 @@ saveas(gcf, 'differentPerror.png')
 % influence of the learning rate ?. Investigating convergence for a larger
 % training set
 eta_list = [0.05 0.025 0.001 0.0001]; % learning rate
-PP =2000; % number of training sets
-QQ= 2000;
+PP =200; % number of training sets
+QQ= 200;
 
+colors = linspecer(length(eta_list));
+coliter = 1;
 figure();
+hold on;
 for et = eta_list % wo runs with random initialisations
     all_cost =[];
     for runs =1: 50
-    [~,~,E_cost,~] = sgd(xi,tau, PP,QQ,et,30);
-    all_cost(:,runs) = E_cost;
+        [~,~,E_cost,test_Error] = sgd(xi,tau, PP,QQ,et,30);
+        all_cost(:,runs) = E_cost;
+        all_t(:,runs) = test_Error;
     end
-    plot((1:30),mean(all_cost,2),"linewidth",1.2,'DisplayName',"\eta = "+et );
-    hold on;
+    plot((1:30),mean(all_cost,2),'color',colors(coliter, :),"linewidth",1.2,'DisplayName',"\eta = "+et );
+    plot((1:30),mean(all_t,2),'--','color',colors(coliter, :),"linewidth",1.2,'DisplayName',"\eta = "+et );
+    coliter = coliter + 1;
 end
 xlabel("Learning step $t$", 'Interpreter', 'latex');
 ylabel("Average cost function $E(t)$", 'Interpreter', 'latex');
