@@ -7,7 +7,7 @@ tau = data.tau; % 5000 target values
 
 eta = 0.05; % learning rate
 P =100; % number of training sets
-Q= 100; % number of test sets. Shouls be 100 or larger
+Q= 120; % number of test sets. Shouls be 100 or larger
 tmax =50; 
 %consider the first P=100
 % average out multiple runs
@@ -42,7 +42,7 @@ hold on;
 plot((1:tmax),mean(all_test,2),"linewidth",1.2);
 % title("Evolutions of averages of E(t) and Etest(t) with learning steps (t) over multiple runs")
 xlabel("Learning step $t$", 'Interpreter', 'latex');
-ylabel("Value", 'Interpreter', 'latex');
+ylabel("Value");
 legend("Cost function $E(t)$", "Generalization error $E_{test}(t)$", 'Interpreter', 'latex');
 saveas(gcf, 'costvsgeneralisation.png');
 
@@ -51,10 +51,10 @@ figure();
 bar(mean(all_w1,2));
 hold on;
 bar(mean(all_w2,2));
-ylabel("Weight value", 'Interpreter', 'latex');
-xlabel("Component index", 'Interpreter', 'latex');
+ylabel("Weight value");
+xlabel("Component index");
 % title("Average final weights for 40 random initialisations");
-legend("Final weights $\mathbf w_1$", "Final weights $\mathbf w_2$", 'Interpreter', 'latex');
+legend("Final weights $\*w_1$", "Final weights $\*w_2$", 'Interpreter', 'latex');
 saveas(gcf, 'finalweights.png');
 
 % Different values of P and Q
@@ -91,8 +91,8 @@ saveas(gcf, 'differentPerror.png')
 % influence of the learning rate ?. Investigating convergence for a larger
 % training set
 eta_list = [0.05 0.025 0.001 0.0001]; % learning rate
-PP =2000; % number of training sets
-QQ= 2000;
+PP =200; % number of training sets
+QQ= 200;
 
 figure();
 for et = eta_list % wo runs with random initialisations
