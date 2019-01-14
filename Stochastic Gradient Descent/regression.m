@@ -8,7 +8,7 @@ tau = data.tau; % 5000 target values
 eta = 0.05; % learning rate
 P =100; % number of training sets
 Q= 100; % number of test sets. Shouls be 100 or larger
-tmax =50; 
+tmax =500; 
 %consider the first P=100
 % average out multiple runs
 all_e =[]; % store all cost functions over multiple runs
@@ -89,11 +89,11 @@ saveas(gcf, 'differentPerror.png')
 % influence of the learning rate ?. Investigating convergence for a larger
 % training set
 eta_list = [0.05 0.025 0.001 0.0001]; % learning rate
-PP =200; % number of training sets
-QQ= 200;
+PP =1000; % number of training sets
+QQ= 1000;
 
 colors = linspecer(length(eta_list));
-coliter = 1;
+coliter = 1
 figure();
 hold on;
 for et = eta_list % wo runs with random initialisations
@@ -105,9 +105,14 @@ for et = eta_list % wo runs with random initialisations
     end
     plot((1:30),mean(all_cost,2),'color',colors(coliter, :),"linewidth",1.2,'DisplayName',"\eta = "+et );
     plot((1:30),mean(all_t,2),'--','color',colors(coliter, :),"linewidth",1.2,'DisplayName',"\eta = "+et );
-    coliter = coliter + 1;
+    coliter = coliter + 1
 end
 xlabel("Learning step $t$", 'Interpreter', 'latex');
 ylabel("Average cost function $E(t)$", 'Interpreter', 'latex');
 legend();
 saveas(gcf, 'differentEta.png')
+
+
+
+
+
